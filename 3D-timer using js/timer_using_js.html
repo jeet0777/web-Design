@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timer</title>
+<style>
+    div.border-blue{
+        box-shadow:20px 20px 20px grey  ;
+        color:  #260986;
+        height:100px;
+        width: 250px;
+        border: black solid 5px;
+        display: inline-block;
+        position: absolute;
+        background-color:darkslateblue;
+    } 
+    #count{
+        color:white;
+        position: relative;
+        top: 40px;
+        display: inline-block;
+    }
+</style>
+
+</head>
+<body>
+
+
+    <br><label>Enter Hours:</label>
+    
+        <input type="text" id="h" placeholder="enter in the format 00" /><br>
+    <br><label>Enter Minutes:</label>
+    
+        <input type="text" id="m" placeholder="enter in the format 00" /><br>
+    <br><label>Enter Seconds:</label>
+    
+        <input type="text" id="s" placeholder="enter in the format 00" />
+<br>
+<br>
+    <input type="button" id="dl" value="Start" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   
+    <input type="button" onclick="clear()" value="clear" id="cleart">
+
+    <br><br><br>
+    <div class="border-blue" style="padding:30px;">
+    
+        <div class="border-blue" style="box-shadow: 0 0 0 ;">
+
+        <center>
+                <div id="count" style="margin-bottom: 30px;">
+
+                </div>
+            </center>
+    </div>
+    </div>
+<script>
+var timer=null;
+
+	var work = document.getElementById("dl");
+	work.addEventListener("click", setTimer);
+
+var cleart=document.getElementById('cleart');
+cleart.addEventListener("click",clear);
+
+var container = document.getElementById('count');
+
+function clear(){
+    advanced=false;
+   clearInterval(timer);
+   container.innerHTML="00:00:00";
+
+}
+
+function setTimer() {
+
+var time1 = document.getElementById('h').value;
+var time2 = document.getElementById('m').value;
+var time3 = document.getElementById('s').value;
+
+var hours = time1;
+var minutes = time2;
+var seconds = time3;
+
+var time = {
+    hours: hours * 1,
+    minutes: minutes * 1,
+    seconds: seconds * 1
+};
+
+
+ timer= setInterval(countdown, 1000);
+
+function countdown() {
+    
+
+    if (time.seconds > 0) {
+        time.seconds--;
+    }
+
+    else {
+        if (time.minutes > 0) {
+            time.minutes--;
+            time.seconds = 60;
+        }
+        else {
+            time.minutes = 60;
+            time.seconds = 60;
+            time.hours--;
+        }
+    }
+
+    if (time.hours >= 0) {
+        container.innerHTML = '<b style=font-size:60px>' + time.hours + '</b>: <b style=font-size:40px>' + time.minutes + '</b> :<b style=font-size:25px>' + time.seconds + '</b>';
+    }
+    else {
+        if(hours==0 && minutes==0 && seconds== 0){
+            clearInterval(timer);
+                    }
+        container.innerHTML = '00:00:00';
+        clearInterval(timer);
+    }
+}
+
+}
+    </script>
+</body>
+</html>
